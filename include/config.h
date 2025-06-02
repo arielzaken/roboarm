@@ -1,20 +1,22 @@
 #pragma once
 
 #include "esp32/clk.h"
-// Stepper motor settings
-#define STEPS_PER_DEG 100
-#define DEFAULT_SPEED 2000
-#define DEFAULT_ACCEL 1000
-#define DEFAULT_DURATION_TICKS 100000
-#define MAX_SAFE_STEPS 10000
 
+// Number of joints
+#define NUM_JOINTS        4
 
-// Joint speed (steps per second)
-#define JOINT_SPEEDS {500, 500, 500, 500}
+// Default (fallback) motion parameters
+#define DEFAULT_SPEED     2000    // Steps/sec
+#define DEFAULT_ACCEL     1000    // Steps/sec²
 
-// Joint acceleration (steps per second squared)
-#define JOINT_ACCELS {1000, 1000, 1000, 1000}
+// Per-joint speed (steps/sec) and accel (steps/sec²)
+#define JOINT_SPEEDS {500, 2000, 2000, 2000}
+#define JOINT_ACCELS {1000, 3000, 3000, 5000}
+
+// Homing parameters
+#define HOME_FAST_SPEED   1000    // Steps/sec (fast until first switch trigger)
+#define HOME_SLOW_SPEED    50     // Steps/sec (slow for fine approach)
+#define BACKOFF_STEPS       10    // Steps to back off after first trigger
 
 // Convert ms to hardware timer ticks based on runtime CPU frequency
 #define DURATION_TICKS(ms) ((esp_clk_cpu_freq() / 1000) * (ms))
-#define NUM_JOINTS 4

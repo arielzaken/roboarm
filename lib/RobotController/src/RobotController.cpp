@@ -7,6 +7,7 @@
 #include <SwitchHomingStrategy.h>
 #include <FastAccelStepper.h>
 #include "ESP_LOG.h"
+#include <MenuCommand.h>
 static const char* TAG = "ROBOT";
 /// Global engine for all StepperJoint instances
 FastAccelStepperEngine engine;
@@ -67,7 +68,8 @@ void RobotController::begin() {
     _parser = new GCodeParser(_joints, _switches, _homingStrategy);
 
     ESP_LOGI(TAG, "Initialization complete. Ready for commands.");
-    Serial.println();
+    MenuCommand menuCmd;
+    menuCmd.execute();  // Show the menu on startup
 }
 
 void RobotController::handleLoop() {

@@ -3,6 +3,7 @@
 #include "HomeAllCommand.h"
 #include "SetPositionCommand.h"
 #include "SwitchTestCommand.h"
+#include "MenuCommand.h"
 #include "ESP_LOG.h"
 
 GCodeParser::GCodeParser(const std::array<IJoint*, NUM_JOINTS>& joints,
@@ -67,6 +68,10 @@ ICommand* GCodeParser::parseLine(const String& raw) {
         return new SetPositionCommand(_joints);
     }
 
+    else if (cmd == "H") {
+        // M2: Menu command
+        return new MenuCommand();
+    }
     ESP_LOGW("GCODE", "Unsupported command: %s", line.c_str());
     return nullptr;
 }

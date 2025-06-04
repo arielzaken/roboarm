@@ -45,7 +45,7 @@ void RobotController::begin() {
         );
         // Set each joint’s rated speed/accel
         _joints[i]->setSpeed(jointSpeeds[i]);
-        _joints[i]->setAcceleration(dirPins[i]);
+        _joints[i]->setAcceleration(jointAccels[i]);
     }
 
     // 2) Create limit switches

@@ -1,4 +1,12 @@
 #pragma once
+#include LINK0_PULSE_PIN
+#include LINK1_PULSE_PIN
+#include LINK2_PULSE_PIN
+#include LINK3_PULSE_PIN
+
+
+
+
 
 // Pulse (STEP) pins for each joint
 #define PULSE_PINS {12, 27, 25, 32}

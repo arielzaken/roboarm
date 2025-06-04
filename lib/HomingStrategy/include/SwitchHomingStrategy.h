@@ -1,5 +1,5 @@
 #pragma once
-#include "IHomingStrategy.h"
+#include <IHomingStrategy.h>
 
 /// Homing by moving rapidly until switch fires, backing off, then approaching slowly.
 class SwitchHomingStrategy : public IHomingStrategy {

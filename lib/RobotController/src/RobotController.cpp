@@ -2,6 +2,9 @@
 #include <Arduino.h>
 #include <config.h>
 #include <pins.h>
+#include <StepperJoint.h>
+#include <LimitSwitch.h>
+#include <SwitchHomingStrategy.h>
 #include <FastAccelStepper.h>
 #include "ESP_LOG.h"
 static const char* TAG = "ROBOT";

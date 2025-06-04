@@ -1,8 +1,8 @@
 #pragma once
 #include "ICommand.h"
-#include "IJoint.h"
-#include "ILimitSwitch.h"
-#include "IHomingStrategy.h"
+#include <IJoint.h>
+#include <ILimitSwitch.h>
+#include <IHomingStrategy.h>
 #include <array>
 #include <config.h>
 

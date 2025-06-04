@@ -25,17 +25,17 @@ void LimitSwitch::setCallback(std::function<void(bool)> cb) {
 
 void LimitSwitch::handleInterrupt() {
     // Read new state: pressed when HIGH
-    bool newState = (digitalRead(_pin) == HIGH);
-    if (newState != _state) {
-        _state = newState;
-        if (_cb) {
-            _cb(_state);
-        }
-    }
+    
 }
 
 void IRAM_ATTR LimitSwitch::isrStatic(void* arg) {
     // Cast the argument back to our instance and invoke the member handler
     LimitSwitch* self = reinterpret_cast<LimitSwitch*>(arg);
-    self->handleInterrupt();
+    bool newState = (digitalRead(self->_pin) == HIGH);
+    if (newState != self->_state) {
+        self->_state = newState;
+        if (self->_cb) {
+            self->_cb(self->_state);
+        }
+    }
 }

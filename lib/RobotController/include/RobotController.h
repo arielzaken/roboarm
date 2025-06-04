@@ -1,11 +1,8 @@
 #pragma once
 #include <array>
-#include "IJoint.h"
-#include "StepperJoint.h"
-#include "ILimitSwitch.h"
-#include "LimitSwitch.h"
-#include "IHomingStrategy.h"
-#include "SwitchHomingStrategy.h"
+#include <IJoint.h>
+#include <ILimitSwitch.h>
+#include <IHomingStrategy.h>
 #include "GCodeParser.h"
 
 /// Encapsulates all robot-level objects: stepper joints, limit switches, parser, and main loop.

@@ -1,6 +1,6 @@
 #pragma once
 #include "ICommand.h"
-#include "ILimitSwitch.h"
+#include <ILimitSwitch.h>
 #include <array>
 #include <config.h>
 

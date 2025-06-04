@@ -1,6 +1,6 @@
 #pragma once
 #include "ICommand.h"
-#include "IJoint.h"
+#include <IJoint.h>
 #include <array>
 #include <config.h>
 /// G0/G1: Move specified joints to given step positions, optionally blocking until done.

@@ -1,7 +1,7 @@
 #pragma once
 #include <config.h>
-#include "ICommand.h"
-#include "IJoint.h"
+#include <ICommand.h>
+#include <IJoint.h>
 #include <array>
 
 /// G92: Set the current position as zero (no actual movement).

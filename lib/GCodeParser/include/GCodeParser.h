@@ -1,10 +1,10 @@
 #pragma once
 #include <Arduino.h>
 #include <config.h>
-#include "ICommand.h"
-#include "IJoint.h"
-#include "ILimitSwitch.h"
-#include "IHomingStrategy.h"
+#include <ICommand.h>
+#include <IJoint.h>
+#include <ILimitSwitch.h>
+#include <IHomingStrategy.h>
 #include <array>
 
 /// Parses one line of G-code (as String) and returns a concrete ICommand.

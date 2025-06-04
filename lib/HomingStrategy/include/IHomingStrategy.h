@@ -1,6 +1,6 @@
 #pragma once
-#include "IJoint.h"
-#include "ILimitSwitch.h"
+#include <IJoint.h>
+#include <ILimitSwitch.h>
 
 /// Defines an interface for homing a single joint.
 /// Strategy Pattern: different joints or sensors might use different homing logic.

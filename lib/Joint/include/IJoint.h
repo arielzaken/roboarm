@@ -7,7 +7,7 @@ public:
     virtual ~IJoint() = default;
 
     /// Move to an absolute step position.
-    virtual void moveTo(long stepPosition) = 0;
+    virtual void moveTo(long stepPosition, bool blocking = false) = 0;
 
     /// Step forward one time-step (no ramp).
     virtual void runForward() = 0;

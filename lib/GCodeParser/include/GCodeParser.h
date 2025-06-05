@@ -12,7 +12,7 @@
 class GCodeParser {
 public:
     GCodeParser(const std::array<IJoint*, NUM_JOINTS>& joints,
-                const std::array<ILimitSwitch*, NUM_JOINTS>& switches,
+                const std::array<LimitSwitchBase*, NUM_JOINTS>& switches,
                 IHomingStrategy* homingStrategy);
 
     /// Parse "line" and return a new ICommand*. Caller must delete after use.
@@ -21,6 +21,6 @@ public:
 
 private:
     std::array<IJoint*, NUM_JOINTS> _joints;
-    std::array<ILimitSwitch*, NUM_JOINTS> _switches;
+    std::array<LimitSwitchBase*, NUM_JOINTS> _switches;
     IHomingStrategy* _homingStrategy;
 };

@@ -5,5 +5,5 @@
 class SwitchHomingStrategy : public IHomingStrategy {
 public:
     virtual ~SwitchHomingStrategy() = default;
-    void home(IJoint& joint, ILimitSwitch& limitSwitch, int jointIndex) override;
+    void home(IJoint& joint, LimitSwitchBase& limitSwitch, int jointIndex) override;
 };

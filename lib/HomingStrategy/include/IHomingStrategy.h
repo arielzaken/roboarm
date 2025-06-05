@@ -10,5 +10,5 @@ public:
 
     /// Perform a homing routine on one joint, using its associated switch.
     /// Should block until homing completes, then set joint position to zero.
-    virtual void home(IJoint& joint, ILimitSwitch& limitSwitch, int jointIndex) = 0;
+    virtual void home(IJoint& joint, LimitSwitchBase& limitSwitch, int jointIndex) = 0;
 };

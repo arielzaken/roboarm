@@ -3,7 +3,7 @@
 #include <config.h>
 #include "ESP_LOG.h"
 static const char* TAG = "HOMING";
-void SwitchHomingStrategy::home(IJoint& joint, ILimitSwitch& limitSwitch, int jointIndex) {
+void SwitchHomingStrategy::home(IJoint& joint, LimitSwitchBase& limitSwitch, int jointIndex) {
     ESP_LOGI(TAG, "Joint %d: Starting fast drive...", jointIndex);
     // Pull in the macro, then immediately put it into a real array:
     static const int accelArr[NUM_JOINTS] = JOINT_ACCELS;

@@ -9,7 +9,7 @@ public:
     virtual ~StepperJoint() = default;
 
     // IJoint
-    void moveTo(long stepPosition) override;
+    void moveTo(long stepPosition, bool blocking = false) override;
     void runForward() override;
     void stop() override;
     void setCurrentPosition(long zeroPosition) override;

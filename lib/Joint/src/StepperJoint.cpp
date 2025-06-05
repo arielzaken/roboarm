@@ -14,9 +14,9 @@ StepperJoint::StepperJoint(int stepPin, int dirPin) {
     // else: failure to allocate, but RobotController checks for null.
 }
 
-void StepperJoint::moveTo(long stepPosition) {
+void StepperJoint::moveTo(long stepPosition, bool blocking) {
     if (_stepper) {
-        MoveResultCode res = _stepper->moveTo(stepPosition);
+        MoveResultCode res = _stepper->moveTo(stepPosition, blocking);
         if(moveIsOk(res)) {
             ESP_LOGD(TAG, "Joint %p moved to position %ld successfully", this, stepPosition);
         } else {

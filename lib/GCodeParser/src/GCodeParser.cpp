@@ -7,7 +7,7 @@
 #include "ESP_LOG.h"
 
 GCodeParser::GCodeParser(const std::array<IJoint*, NUM_JOINTS>& joints,
-                         const std::array<ILimitSwitch*, NUM_JOINTS>& switches,
+                         const std::array<LimitSwitchBase*, NUM_JOINTS>& switches,
                          IHomingStrategy* homingStrategy)
     : _joints(joints), _switches(switches), _homingStrategy(homingStrategy)
 {}
@@ -23,7 +23,7 @@ ICommand* GCodeParser::parseLine(const String& raw) {
     String cmd = line.substring(0, 2);
 
     // G0 or G1: MoveCommand
-    if (cmd == "G0" || cmd == "G1") {
+    if (cmd == "G0") {
         std::array<long, NUM_JOINTS> targets = {0,0,0,0};
         std::array<bool, NUM_JOINTS> valid = {false, false, false, false};
         unsigned long feed = 0;
@@ -49,8 +49,7 @@ ICommand* GCodeParser::parseLine(const String& raw) {
             }
         }
 
-        bool blocking = (cmd == "G1");
-        return new MoveCommand(_joints, targets, valid, feed, blocking);
+        return new MoveCommand(_joints, targets, valid, feed);
     }
 
     // M119: switch test

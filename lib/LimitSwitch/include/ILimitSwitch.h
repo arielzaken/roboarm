@@ -1,17 +1,15 @@
 #pragma once
+#include "ObservableISR.h"
 
-#include <functional>
-
+struct LimitSwitchEvent {
+    bool state;
+};
 /// Interface for a limit switch sensor.
 /// We can register a callback that fires on a state change.
-class ILimitSwitch {
+class LimitSwitchBase: public ObservableISR<LimitSwitchEvent, 4> {
 public:
-    virtual ~ILimitSwitch() = default;
+    virtual ~LimitSwitchBase() = default;
 
     /// Returns true if the switch is currently "pressed."
     virtual bool isPressed() const = 0;
-
-    /// Register a callback (ISR safe) to notify on any state change.
-    /// Signature: void callback(bool newState)
-    virtual void setCallback(std::function<void(bool)> cb) = 0;
 };

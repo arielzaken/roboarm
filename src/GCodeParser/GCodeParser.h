@@ -3,8 +3,7 @@
 #include <config.h>
 #include "Command/ICommand.h"
 #include "Joint/IJoint.h"
-#include "LimitSwitch/ILimitSwitch.h"
-#include "HomingStrategy/IHomingStrategy.h"
+#include "LimitSwitch/LimitSwitchBase.h"
 #include <array>
 
 /// Parses one line of G-code (as String) and returns a concrete ICommand.
@@ -12,8 +11,7 @@
 class GCodeParser {
 public:
     GCodeParser(const std::array<IJoint*, NUM_JOINTS>& joints,
-                const std::array<LimitSwitchBase*, NUM_JOINTS>& switches,
-                IHomingStrategy* homingStrategy);
+                const std::array<LimitSwitchBase*, NUM_JOINTS>& switches);
 
     /// Parse "line" and return a new ICommand*. Caller must delete after use.
     /// If unsupported or empty, returns nullptr.
@@ -22,5 +20,4 @@ public:
 private:
     std::array<IJoint*, NUM_JOINTS> _joints;
     std::array<LimitSwitchBase*, NUM_JOINTS> _switches;
-    IHomingStrategy* _homingStrategy;
 };

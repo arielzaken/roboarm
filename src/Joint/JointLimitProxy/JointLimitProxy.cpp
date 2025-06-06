@@ -8,18 +8,28 @@ static const char* TAG = "JointLimitProxy";
 JointLimitProxy::JointLimitProxy(IJoint *joint, LimitSwitchBase *limitSwitch) : 
     _joint(joint), 
     _limitSwitch(limitSwitch)
-{}   
+{}
+
+void JointLimitProxy::move(long step, bool blocking)
+{
+    if (_limitSwitch->isPressed()) {
+        ESP_LOGW(TAG, "Move aborted: limit switch is pressed.");
+        return;
+    }
+    _joint->move(step, blocking);
+}
 
 void JointLimitProxy::moveTo(long stepPosition, bool blocking) {
     if (_limitSwitch->isPressed()) {
-        ESP_LOGI(TAG, "Move aborted: limit switch is pressed.");
+        ESP_LOGW(TAG, "Move aborted: limit switch is pressed.");
+        return;
     }
     _joint->moveTo(stepPosition, blocking);
 }
 
 void JointLimitProxy::runForward() {
     if (_limitSwitch->isPressed()) {
-        ESP_LOGI(TAG, "Run forward aborted: limit switch is pressed.");
+        ESP_LOGW(TAG, "Run forward aborted: limit switch is pressed.");
     }
     else{
         _joint->runForward();
@@ -50,4 +60,11 @@ bool JointLimitProxy::isRunning() const {
     return _joint->isRunning();
 }
 
-
+void JointLimitProxy::moveTimed(long stepPosition, unsigned long duration, uint32_t* actual, bool blocking)
+{
+    if (_limitSwitch->isPressed()) {
+        ESP_LOGW(TAG, "Move timed aborted: limit switch is pressed.");
+        return;
+    }
+    _joint->moveTimed(stepPosition, duration, actual, blocking);
+}

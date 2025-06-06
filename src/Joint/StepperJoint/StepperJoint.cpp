@@ -14,6 +14,17 @@ StepperJoint::StepperJoint(int stepPin, int dirPin) {
     // else: failure to allocate, but RobotController checks for null.
 }
 
+void StepperJoint::move(long step, bool blocking) {
+    if (_stepper) {
+        MoveResultCode res = _stepper->move(step, blocking);
+        if(moveIsOk(res)) {
+            ESP_LOGD(TAG, "Joint %p moved %ld steps successfully", this, step);
+        } else {
+            ESP_LOGE(TAG, "Failed to move joint %p %ld steps (%s)", this, step, toString(res));
+        }
+    }
+}
+
 void StepperJoint::moveTo(long stepPosition, bool blocking) {
     if (_stepper) {
         MoveResultCode res = _stepper->moveTo(stepPosition, blocking);
@@ -67,4 +78,16 @@ void StepperJoint::setAcceleration(unsigned long accel) {
 
 bool StepperJoint::isRunning() const {
     return _stepper ? _stepper->isRunning() : false;
+}
+
+
+void StepperJoint::moveTimed(long stepPosition, unsigned long duration, uint32_t* actual, bool blocking){
+    if (_stepper) {
+        MoveTimedResultCode res = _stepper->moveTimed(stepPosition, duration, actual, blocking);
+        if(moveTimedIsOk(res)) {
+            ESP_LOGD(TAG, "Joint %p moved %ld steps successfully", this, stepPosition);
+        } else {
+            ESP_LOGE(TAG, "Failed to move joint %p %ld steps (%s)", this, stepPosition, toString(res));
+        }
+    }
 }

@@ -15,8 +15,8 @@
 #define  LINK3_DIR_PIN 26
 
 // Limit-switch pins for each joint
-#define LINK0_SWITCH_PIN 16
-#define LINK1_SWITCH_PIN 17
+#define LINK1_SWITCH_PIN 16
+#define LINK0_SWITCH_PIN 17
 #define LINK2_SWITCH_PIN 5
 #define LINK3_SWITCH_PIN 18
 // Pulse (STEP) pins for each joint
@@ -27,3 +27,6 @@
 
 // Limit switch pins for each joint
 #define SWITCH_PINS {LINK0_SWITCH_PIN, LINK1_SWITCH_PIN, LINK2_SWITCH_PIN, LINK3_SWITCH_PIN}
+
+
+#define MAX_GPIO_PIN 40

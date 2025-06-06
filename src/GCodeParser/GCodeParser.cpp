@@ -1,15 +1,14 @@
 #include "GCodeParser.h"
 #include "Command/MoveCommand/MoveCommand.h"
-#include "Command/HomeAllCommand/HomeAllCommand.h"
 #include "Command/SetPositionCommand/SetPositionCommand.h"
 #include "Command/SwitchTestCommand/SwitchTestCommand.h"
 #include "Command/MenuCommand/MenuCommand.h"
+#include "Command/HomeAllCommand/HomeAllCommand.h"
 #include "ESP_LOG.h"
 
 GCodeParser::GCodeParser(const std::array<IJoint*, NUM_JOINTS>& joints,
-                         const std::array<LimitSwitchBase*, NUM_JOINTS>& switches,
-                         IHomingStrategy* homingStrategy)
-    : _joints(joints), _switches(switches), _homingStrategy(homingStrategy)
+                         const std::array<LimitSwitchBase*, NUM_JOINTS>& switches)
+    : _joints(joints), _switches(switches)
 {}
 
 ICommand* GCodeParser::parseLine(const String& raw) {
@@ -59,7 +58,7 @@ ICommand* GCodeParser::parseLine(const String& raw) {
 
     // G28: home all
     else if (cmd == "G2" && line.startsWith("G28")) {
-        return new HomeAllCommand(_joints, _switches, _homingStrategy);
+        return new HomeAllCommand(_joints, _switches);
     }
 
     // G92: set position to zero

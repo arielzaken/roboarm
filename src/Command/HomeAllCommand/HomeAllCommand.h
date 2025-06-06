@@ -1,8 +1,7 @@
 #pragma once
 #include "../ICommand.h"
 #include "Joint/IJoint.h"
-#include "LimitSwitch/ILimitSwitch.h"
-#include "HomingStrategy/IHomingStrategy.h"
+#include "LimitSwitch/LimitSwitchBase.h"
 #include <array>
 #include <config.h>
 
@@ -10,13 +9,11 @@
 class HomeAllCommand : public ICommand {
 public:
     HomeAllCommand(const std::array<IJoint*, NUM_JOINTS>& joints,
-                   const std::array<LimitSwitchBase*, NUM_JOINTS>& switches,
-                   IHomingStrategy* homingStrategy);
+                   const std::array<LimitSwitchBase*, NUM_JOINTS>& switches);
 
-    void execute() override;
+    void execute() override; 
 
 private:
     std::array<IJoint*, NUM_JOINTS> _joints;
     std::array<LimitSwitchBase*, NUM_JOINTS> _switches;
-    IHomingStrategy* _strategy;
 };

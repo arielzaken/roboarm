@@ -1,6 +1,6 @@
 #pragma once
 #include "Joint/IJoint.h"
-#include "LimitSwitch/ILimitSwitch.h"
+#include "LimitSwitch/LimitSwitchBase.h"
 /**
  * @file JointLimitProxy.h
  * @brief Proxy class for a stepper joint with limit switch integration.
@@ -19,6 +19,7 @@ private:
 public:
     JointLimitProxy(IJoint* joint, LimitSwitchBase* limitSwitch);
 
+    virtual void move(long step, bool blocking = false) override;
     /// Move to an absolute step position.
     void moveTo(long stepPosition, bool blocking = false) override;
 
@@ -43,4 +44,7 @@ public:
 
     /// Returns true if the joint is still moving.
     bool isRunning() const override;
+
+    /// Move to a step position with a timeout.
+    void moveTimed(long stepPosition, unsigned long duration, uint32_t* actual, bool blocking = false) override;
 };

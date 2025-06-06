@@ -2,6 +2,7 @@
 #include "ESP_LOG.h"
 #include <Arduino.h>
 #include <config.h>
+#include "pins.h"
 
 SwitchTestCommand::SwitchTestCommand(const std::array<LimitSwitchBase*, NUM_JOINTS>& switches)
     : _switches(switches)
@@ -10,20 +11,27 @@ SwitchTestCommand::SwitchTestCommand(const std::array<LimitSwitchBase*, NUM_JOIN
     for (int i = 0; i < NUM_JOINTS; i++) {
         SwitchStates[i] = switches[i]->isPressed();
     }
-    // Register observer for each switch
+    
     for (int i = 0; i < NUM_JOINTS; i++) {
-        _observers[i] = new SwitchTestObserver(this, i);
-        _switches[i]->addObserver(_observers[i]);
+        if (_switches[i]) {
+            _switches[i]->addObserver(this);  // Register this command as an observer
+            ESP_LOGD("SWITCH_TEST", "Switch %d observer registered.", i);
+        } else {
+            ESP_LOGW("SWITCH_TEST", "Switch %d is null, cannot register observer.", i);
+        }
     }
+
 }
 
 SwitchTestCommand::~SwitchTestCommand() {
+    // Unregister all observers
     for (int i = 0; i < NUM_JOINTS; i++) {
-        _switches[i]->removeObserver(_observers[i]);
-        delete _observers[i];
+        if (_switches[i]) {
+            _switches[i]->removeObserver(this);
+        }
     }
+    ESP_LOGI("SWITCH_TEST", "SwitchTestCommand destroyed, observers unregistered.");
 }
-
 
 void SwitchTestCommand::execute() {
     ESP_LOGI("SWITCH_TEST", "Entering switch test mode. Type EXIT to stop.");
@@ -49,13 +57,14 @@ void SwitchTestCommand::execute() {
     }
 }
 
-void SwitchTestObserver::onNotify(const LimitSwitchEvent& event)
+void SwitchTestCommand::onNotify(const LimitSwitchEvent& event)
 {
-    _This->SwitchStates[_SwitchIndex] = event.state;
+    // ESP_LOGD("SWITCH_TEST", "Switch %d changed to %s", event.id, event.state == SWITCH_PRESSED ? "PRESSED" : "RELEASED");
+    SwitchStates[event.id] = event.state;
 
     Serial.print("\r");
     for (int i = 0; i < NUM_JOINTS; i++) {
-        Serial.print(_This->SwitchStates[i] ? "1 " : "0 ");
+        Serial.print(SwitchStates[i] ? "1 " : "0 ");
     }
     Serial.flush();
 }

@@ -27,10 +27,10 @@ void IRAM_ATTR LimitSwitch::onInterrupt() {
     }
     _lastInterruptTick = now;
 
-    bool newState = digitalRead(_pin);  // assumes ISR-safe on ESP32
+    SwitchState newState = toSwitchState(digitalRead(_pin));  // assumes ISR-safe on ESP32
     if (newState != _state) {
         _state = newState;
-        LimitSwitchEvent evt = { newState };
+        LimitSwitchEvent evt = { newState, id };
         notifyFromISR(evt);
     }
 }

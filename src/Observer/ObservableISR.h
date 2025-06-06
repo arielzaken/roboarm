@@ -3,6 +3,7 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/queue.h>
 #include <freertos/task.h>
+#include "esp_log.h"
 #include "IObserver.h"
 
 // Observable class with internal queue and task
@@ -56,6 +57,7 @@ private:
         T evt;
         while (true) {
             if (xQueueReceive(self->_queue, &evt, portMAX_DELAY) == pdTRUE) {
+                // ESP_LOGD("ObservableISR", "Event received, notifying observers");
                 for (size_t i = 0; i < MaxObservers; ++i) {
                     if (self->_observers[i]) {
                         self->_observers[i]->onNotify(evt);

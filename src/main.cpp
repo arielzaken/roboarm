@@ -1,14 +1,15 @@
 #include <Arduino.h>
 #include <config.h>
 #include <pins.h>
-#include <StepperJoint.h>
-#include <LimitSwitch.h>
-#include <SwitchHomingStrategy.h>
 #include <FastAccelStepper.h>
-#include <GCodeParser.h>
-#include <MenuCommand.h>
-#include <JointLimitProxy.h>
 #include <ESP_LOG.h>
+#include "Joint/StepperJoint/StepperJoint.h"
+#include "HomingStrategy/SwitchHomingStrategy/SwitchHomingStrategy.h"
+#include "GCodeParser/GCodeParser.h"
+#include "Command/MenuCommand/MenuCommand.h"
+#include "Joint/JointLimitProxy/JointLimitProxy.h"
+#include "Stopper/Stopper.h"
+#include "LimitSwitch/LimitSwitch/LimitSwitch.h"
 
 static const char* TAG = "MAIN";
 
@@ -19,6 +20,7 @@ std::array<IJoint*, NUM_JOINTS> _jointProxies;
 IHomingStrategy* _homingStrategy;
 GCodeParser* _parser;
 FastAccelStepperEngine engine;
+Stopper* _stopper;
 
 // Interactive input buffer
 String _inputBuffer;
@@ -48,7 +50,7 @@ void setup() {
     // 2) Create limit switches
     //    Use INPUT_PULLDOWN so idle=LOW, pressed=HIGH
     for (int i = 0; i < NUM_JOINTS; i++) {
-        _switches[i] = new LimitSwitch(switchPins[i], RISING);
+        _switches[i] = new LimitSwitch(switchPins[i], CHANGE);
         _jointProxies[i] = new JointLimitProxy(_joints[i], _switches[i]);
     }
 

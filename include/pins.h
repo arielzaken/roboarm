@@ -2,15 +2,17 @@
 // This file defines the pin assignments for the robotic arm's stepper motors and limit switches.
 // The pin numbers are specific to the ESP32 microcontroller.
 
-#define  LINK0_PULSE_PIN 12
-#define  LINK1_PULSE_PIN 27
-#define  LINK2_PULSE_PIN 25
-#define  LINK3_PULSE_PIN 32
+#define  LINK0_PULSE_PIN 32
+#define  LINK0_DIR_PIN 33
 
-#define  LINK0_DIR_PIN 13
+#define  LINK1_PULSE_PIN 27
 #define  LINK1_DIR_PIN 14
-#define  LINK2_DIR_PIN 26
-#define  LINK3_DIR_PIN 33
+
+#define  LINK2_PULSE_PIN 12
+#define  LINK2_DIR_PIN 13
+
+#define  LINK3_PULSE_PIN 25
+#define  LINK3_DIR_PIN 26
 
 // Limit-switch pins for each joint
 #define LINK0_SWITCH_PIN 16

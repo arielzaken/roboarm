@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esp32/clk.h"
+#define ROBOT_VERSION "V1.0.0"
 
 // Number of joints
 #define NUM_JOINTS        4
@@ -18,5 +18,4 @@
 #define HOME_SLOW_SPEED    50     // Steps/sec (slow for fine approach)
 #define BACKOFF_STEPS       10    // Steps to back off after first trigger
 
-// Convert ms to hardware timer ticks based on runtime CPU frequency
-#define DURATION_TICKS(ms) ((esp_clk_cpu_freq() / 1000) * (ms))
+#define MAX_OBSERVERS_PER_SENSOR 4
